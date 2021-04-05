@@ -12,15 +12,21 @@ const ContactForm = () => {
     validationSchema: Yup.object({
       firstName: Yup.string()
         .max(15, 'Must be 15 characters or less')
-        .required('Required'),
+        .required('First Name Is Required'),
       lastName: Yup.string()
         .max(15, 'Must be 15 characters or less')
-        .required('Required'),
-      email: Yup.string().email('Invalid email address').required('Required'),
+        .required('Last Name Is Required'),
+      email: Yup.string()
+        .email('Invalid email address')
+        .required('Email Is Required'),
+      message: Yup.string()
+        .min(20, 'Must be 20 characters or more')
+        .required('Message Is Required'),
     }),
     onSubmit: values => {
-      console.log(values)
-      // handle async task
+      alert(JSON.stringify(values))
+      formik.resetForm()
+      // handle async task with this values
     },
   })
   return (
@@ -28,7 +34,7 @@ const ContactForm = () => {
       <form className="w-full max-w-lg m-auto" onSubmit={formik.handleSubmit}>
         <div className="flex flex-col justify-center items-center my-4">
           <h4 className="uppercase text-2xl font-bold text-gray-500">
-            connecting with up
+            connecting with us
           </h4>
           <div className="bg-green-400 h-1 w-40 mt-3"></div>
         </div>
@@ -40,12 +46,20 @@ const ContactForm = () => {
             <input
               type="text"
               id="firstName"
-              className="input"
+              className={`input ${
+                formik.touched.firstName && formik.errors.firstName
+                  ? 'border-2 border-red-600'
+                  : ''
+              }`}
               name="firstName"
               value={formik.values.firstName}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               placeholder="First Name"
             />
+            {formik.touched.firstName && formik.errors.firstName ? (
+              <div className="text-red-600">{formik.errors.firstName}</div>
+            ) : null}
           </div>
           <div className="w-full md:w-1/2 px-3 mb-3 md:mb-0">
             <label className="label" htmlFor="lastName">
@@ -54,12 +68,20 @@ const ContactForm = () => {
             <input
               type="text"
               id="lastName"
-              className="input"
+              className={`input ${
+                formik.touched.lastName && formik.errors.lastName
+                  ? 'border-2 border-red-600'
+                  : ''
+              }`}
               name="lastName"
               value={formik.values.lastName}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               placeholder="Last Name"
             />
+            {formik.touched.lastName && formik.errors.lastName ? (
+              <div className="text-red-600">{formik.errors.lastName}</div>
+            ) : null}
           </div>
         </div>
         <div className="flex flex-wrap mb-3">
@@ -70,12 +92,20 @@ const ContactForm = () => {
             <input
               type="email"
               id="email"
-              className="input"
+              className={`input ${
+                formik.touched.email && formik.errors.email
+                  ? 'border-2 border-red-600'
+                  : ''
+              }`}
               name="email"
               value={formik.values.email}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               placeholder="Email"
             />
+            {formik.touched.email && formik.errors.email ? (
+              <div className="text-red-600">{formik.errors.email}</div>
+            ) : null}
           </div>
         </div>
         <div className="flex flex-wrap mb-3">
@@ -84,13 +114,21 @@ const ContactForm = () => {
               Message
             </label>
             <textarea
-              className=" input no-resize h-48 resize-none"
               id="textMessage"
               name="message"
+              className={`input no-resize h-48 resize-none ${
+                formik.touched.email && formik.errors.email
+                  ? 'border-2 border-red-600'
+                  : ''
+              }`}
               value={formik.values.message}
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               placeholder="Message"
             ></textarea>
+            {formik.touched.message && formik.errors.message ? (
+              <div className="text-red-600">{formik.errors.message}</div>
+            ) : null}
           </div>
         </div>
 
