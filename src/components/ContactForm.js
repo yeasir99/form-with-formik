@@ -117,7 +117,7 @@ const ContactForm = () => {
               id="textMessage"
               name="message"
               className={`input no-resize h-48 resize-none ${
-                formik.touched.email && formik.errors.email
+                formik.touched.message && formik.errors.message
                   ? 'border-2 border-red-600'
                   : ''
               }`}
