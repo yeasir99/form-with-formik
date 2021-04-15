@@ -2,10 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-.input {
-  @apply appearance-none block w-full bg-gray-200 text-gray-700  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-gray-300;
-}
+@layer components {
+  .input {
+    @apply appearance-none block w-full bg-gray-200 text-gray-700  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-gray-300;
+  }
 
-.label {
-  @apply block uppercase tracking-wide text-gray-500 text-base font-semibold mb-2;
+  .label {
+    @apply block uppercase tracking-wide text-gray-500 text-base font-semibold mb-2;
+  }
 }
